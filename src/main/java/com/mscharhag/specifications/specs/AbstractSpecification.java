@@ -9,7 +9,7 @@ import javax.persistence.criteria.Root;
 abstract public class AbstractSpecification<T> implements Specification<T> {
 
 	@Override
-	public boolean isStatisfiedBy(T t) {
+	public boolean isSatisfiedBy(T t) {
 		throw new NotImplementedException();
 	}
 	

@@ -1,6 +1,7 @@
 package com.mscharhag.specifications.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,14 +31,6 @@ public class Poll {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Vote> votes = new ArrayList<>();
-	
-	@Deprecated // required by Hibernate
-	public Poll() { }
-	
-	public Poll(DateTime start, DateTime end) {
-		this.startDate = start;
-		this.endDate = end;
-	}
 	
 	public boolean isActive() {
 		return startDate.isBeforeNow() && endDate.isAfterNow() && lockDate == null;

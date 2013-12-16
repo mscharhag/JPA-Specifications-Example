@@ -32,14 +32,13 @@ public class TestRepository {
 	}
 	
 	
-	public <T> List<T> listFromSpecification(Specification<T> specification) {
+	public <T> List<T> findAllBySpecification(Specification<T> specification) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-//		ParameterizedType type = (ParameterizedType) specification.getClass().getGenericSuperclass();
-//		Class<T> clazz = (Class<T>)type.getActualTypeArguments()[0];
-		
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(specification.getType());
 		Root<T> root = criteriaQuery.from(specification.getType());
+		
 		Predicate predicate = specification.toPredicate(root, criteriaBuilder);
+		
 		criteriaQuery.where(predicate);
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}

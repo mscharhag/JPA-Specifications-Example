@@ -10,10 +10,9 @@ import com.mscharhag.specifications.domain.Poll_;
 public class IsPopular extends AbstractSpecification<Poll> {
 	
 	@Override
-	public boolean isStatisfiedBy(Poll poll) {
+	public boolean isSatisfiedBy(Poll poll) {
 		return poll.getLockDate() == null && poll.getVotes().size() > 5;
-	}
-	
+	}	
 	
 	@Override
 	public Predicate toPredicate(Root<Poll> poll, CriteriaBuilder cb) {
@@ -22,5 +21,4 @@ public class IsPopular extends AbstractSpecification<Poll> {
 			cb.greaterThan(cb.size(poll.get(Poll_.votes)), 5)
 		);
 	}
-
 }

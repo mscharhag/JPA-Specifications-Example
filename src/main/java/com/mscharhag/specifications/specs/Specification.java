@@ -7,7 +7,7 @@ import javax.persistence.criteria.Root;
 
 public interface Specification<T> {
 	
-	boolean isStatisfiedBy(T t);
+	boolean isSatisfiedBy(T t);
 	
 	Predicate toPredicate(Root<T> root, CriteriaBuilder cb);
 	

@@ -9,13 +9,13 @@ import org.joda.time.DateTime;
 import com.mscharhag.specifications.domain.Poll;
 import com.mscharhag.specifications.domain.Poll_;
 
-public class IsActive extends AbstractSpecification<Poll> {
+public class IsCurrentlyRunning extends AbstractSpecification<Poll> {
 
 	@Override
-	public boolean isStatisfiedBy(Poll poll) {
+	public boolean isSatisfiedBy(Poll poll) {
 		return poll.getStartDate().isBeforeNow() 
 				&& poll.getEndDate().isAfterNow() 
-				&& poll.getLockDate()== null;
+				&& poll.getLockDate() == null;
 	}
 
 	@Override

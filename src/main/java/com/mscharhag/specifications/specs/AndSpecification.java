@@ -15,8 +15,8 @@ public class AndSpecification<T> extends AbstractSpecification<T> {
 	}
 	
 	@Override
-	public boolean isStatisfiedBy(T t) {
-		return first.isStatisfiedBy(t) && second.isStatisfiedBy(t);
+	public boolean isSatisfiedBy(T t) {
+		return first.isSatisfiedBy(t) && second.isSatisfiedBy(t);
 	}
 
 	@Override

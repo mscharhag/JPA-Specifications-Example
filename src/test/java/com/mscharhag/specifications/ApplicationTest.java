@@ -15,8 +15,10 @@ import com.mscharhag.specifications.dao.TestRepository;
 import com.mscharhag.specifications.domain.Poll;
 import com.mscharhag.specifications.domain.Vote;
 import com.mscharhag.specifications.repository.PollRepository;
-import com.mscharhag.specifications.specs.IsActive;
+import com.mscharhag.specifications.specs.AndSpecification;
+import com.mscharhag.specifications.specs.IsCurrentlyRunning;
 import com.mscharhag.specifications.specs.IsPopular;
+import com.mscharhag.specifications.specs.Specification;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
@@ -31,7 +33,9 @@ public class ApplicationTest {
 	
 	@Test
 	public void testIsActive() {
-		Poll p = new Poll(new DateTime().plusDays(3), new DateTime().plusDays(7));
+		Poll p = new Poll();
+		p.setStartDate(new DateTime());
+		p.setEndDate(new DateTime().plusDays(7));
 		p.getVotes().add(new Vote());
 		p.getVotes().add(new Vote());
 		p.getVotes().add(new Vote());
@@ -40,7 +44,10 @@ public class ApplicationTest {
 		p.getVotes().add(new Vote());
 		pollRepository.save(p);
 		//List<Poll> polls = myRepository.getActivePollsCriteria();
-		List<Poll> polls = myRepository.listFromSpecification(new IsPopular().and(new IsActive()));
+//		Specification<Poll> popularAndRunning = new AndSpecification<>(new IsPopular(), new IsCurrentlyRunning());
+//		List<Poll> polls = myRepository.findAllBySpecification(popularAndRunning);
+		Specification<Poll> popularAndRunning = new IsPopular().and(new IsCurrentlyRunning());
+		List<Poll> polls = myRepository.findAllBySpecification(popularAndRunning);
 		
 		System.out.println("polls: " + polls);
 		//assertTrue(p.isActive());
@@ -49,13 +56,16 @@ public class ApplicationTest {
 	
 	@Test
 	public void testIsPopular() {
-		Poll p = new Poll(new DateTime(), new DateTime().plusDays(7));
+		Poll p = new Poll();
+		p.setStartDate(new DateTime());
+		p.setEndDate(new DateTime().plusDays(7));
 		p.getVotes().add(new Vote());
 		p.getVotes().add(new Vote());
 		p.getVotes().add(new Vote());
 		p.getVotes().add(new Vote());
 		p.getVotes().add(new Vote());
 		p.getVotes().add(new Vote());
-		assertTrue(p.isPopular());
+	//	new IsCurrentlyRunning().isSatisfiedBy(poll);
+		//assertTrue(p.isPopular());
 	}
 }
