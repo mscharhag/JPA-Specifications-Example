@@ -1,4 +1,4 @@
-package com.mscharhag.specifications.specs;
+package com.mscharhag.specifications.specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;

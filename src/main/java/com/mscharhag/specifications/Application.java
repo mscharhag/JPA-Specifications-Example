@@ -1,10 +1,7 @@
 package com.mscharhag.specifications;
 
-import javax.sql.DataSource;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -13,9 +10,12 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
 
 @ComponentScan
-@EnableJpaRepositories("com.mscharhag.specifications.repository")
+@EnableTransactionManagement
 public class Application {
 
 	@Bean
@@ -25,15 +25,15 @@ public class Application {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
-		LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-		lef.setDataSource(dataSource);
-		lef.setJpaVendorAdapter(jpaVendorAdapter);
-		lef.setPackagesToScan("com.mscharhag.specifications.domain");
-		return lef;
+		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+		emf.setDataSource(dataSource);
+		emf.setJpaVendorAdapter(jpaVendorAdapter);
+		emf.setPackagesToScan("com.mscharhag.specifications.domain");
+		return emf;
 	}
 
 	@Bean
-	public JpaVendorAdapter jpaVendorAdapter(DataSource dataSource) {
+	public JpaVendorAdapter jpaVendorAdapter() {
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
 		hibernateJpaVendorAdapter.setShowSql(false);
 		hibernateJpaVendorAdapter.setGenerateDdl(true);

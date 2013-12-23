@@ -1,4 +1,4 @@
-package com.mscharhag.specifications.specs;
+package com.mscharhag.specifications.specification;
 
 public class NotImplementedException extends RuntimeException {
 

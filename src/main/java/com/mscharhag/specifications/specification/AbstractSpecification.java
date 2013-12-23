@@ -1,4 +1,4 @@
-package com.mscharhag.specifications.specs;
+package com.mscharhag.specifications.specification;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -12,24 +12,20 @@ abstract public class AbstractSpecification<T> implements Specification<T> {
 	public boolean isSatisfiedBy(T t) {
 		throw new NotImplementedException();
 	}
-	
-	
+
 	@Override
 	public Predicate toPredicate(Root<T> poll, CriteriaBuilder cb) {
 		throw new NotImplementedException();
 	}
 
-	
 	@Override
 	public Specification<T> and(Specification<T> other) {
 		return new AndSpecification<>(this, other);
 	}
-	
-	
+
 	@Override
 	public Class<T> getType() {
 		ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
-		Class<T> clazz = (Class<T>)type.getActualTypeArguments()[0];
-		return clazz;
+		return (Class<T>)type.getActualTypeArguments()[0];
 	}
 }

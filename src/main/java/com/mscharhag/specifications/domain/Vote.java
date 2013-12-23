@@ -6,17 +6,17 @@ import javax.persistence.Id;
 
 @Entity
 public class Vote {
-	
-	@Id
-	@GeneratedValue
-	private long id;
 
-	public long getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue
+    private long id;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
 }
